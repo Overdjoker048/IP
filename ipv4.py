@@ -41,9 +41,9 @@ class Ipv4Adress:
             return False
 
 
-    def scan(self, max_scanning: int = 500, time_skip: int = 2) -> list:
+    def scan(self, max_scanning: int = 500, timeout: int = 2) -> list:
         opened_port = []
-        socket.setdefaulttimeout(time_skip)
+        socket.setdefaulttimeout(timeout)
         def run(port) -> None:
             scanner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             if scanner.connect_ex((self.__ip, port)) == 0:
@@ -72,11 +72,11 @@ def get_ip(domaine) -> str:
     except:
         raise ValueError("This url doesn't exist")
 
-def scan(ip: str or Ipv4Adress, max_scanning: int = 500, time_skip: int = 2) -> list:
+def scan(ip: str or Ipv4Adress, max_scanning: int = 500, timeout: int = 2) -> list:
     if str(type(ip)) == "<class 'str'>":
         Ipv4Adress(ip)
     opened_port = []
-    socket.setdefaulttimeout(time_skip)
+    socket.setdefaulttimeout(timeout)
     def run(ip, port) -> None:
         scanner = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         if scanner.connect_ex((ip, port)) == 0:
